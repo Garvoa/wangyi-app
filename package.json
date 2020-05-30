@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "postcss-px2rem": "^0.3.0",
+    "swiper": "^5.4.1",
+    "vant": "^2.8.4",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -16,6 +19,7 @@
     "@vue/cli-plugin-eslint": "~4.3.0",
     "@vue/cli-service": "~4.3.0",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-import": "^1.13.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "vue-template-compiler": "^2.6.11"
