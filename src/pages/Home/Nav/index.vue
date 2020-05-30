@@ -22,13 +22,8 @@
       </div>
       <div class="nav-selsect">
         <span class="tabAlter" v-if="!isShow">全部频道</span>
-        <div class="list" v-if="isShow">
-          <span class="nav-selsect-active">推荐</span>
-          <span>居家生活</span>
-          <span>服饰鞋包</span>
-          <span>美食酒水</span>
-        </div>
 
+        <Slider v-if="isShow" />
         <div class="moreCate isshow" v-else>
           <van-button class="cateTag nav-selsect-active">推荐</van-button>
           <van-button class="cateTag">居家生活</van-button>
@@ -41,21 +36,20 @@
           <van-button class="cateTag">严选全球</van-button>
         </div>
 
-        <div class="toggle">
-          <van-icon
-            :name="isShow?'arrow-up':'arrow-down'"
-            @touchstart.stop.prevent="isShowSelsect"
-          />
+        <div id="toggle" @touchstart.stop.prevent="isShowSelsect">
+          <van-icon :name="isShow?'arrow-up':'arrow-down'" />
         </div>
       </div>
-      <div class="nav-Line" v-show="isShow"></div>
+      <!-- <div class="nav-Line" v-show="isShow"></div> -->
     </nav>
     <van-overlay :show="!isShow" @click="isShow = true" />
   </div>
 </template>
 
 <script>
+import Slider from '../../../components/Slider'
 export default {
+  components: { Slider },
   data() {
     return {
       isShow: true,
@@ -121,9 +115,19 @@ export default {
 
   .nav-selsect {
     position: relative;
+    #toggle {
+      position: absolute;
+      right: 0;
+      top: 15px;
+      width: 50px;
+      height: 20px;
+      background-color: white;
+      text-align: center;
+    }
     .tabAlter {
       position: absolute;
       left: 20px;
+      top: 10px;
     }
     .moreCate {
       display: flex;
@@ -153,16 +157,7 @@ export default {
         }
       }
     }
-    .list {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 10px 0 0 25px;
-      span {
-        display: inline-block;
-        padding: 5px 10px;
-        font-size: 14px;
-      }
-    }
+
     .toggle {
       margin-left: 30px;
       position: absolute;
@@ -170,12 +165,12 @@ export default {
       top: 5px;
     }
   }
-  .nav-Line {
-    width: 40px;
-    height: 2px;
-    background-color: red;
-    transform: translateX(30px);
-  }
+  // .nav-Line {
+  //   width: 40px;
+  //   height: 2px;
+  //   background-color: red;
+  //   transform: translateX(30px);
+  // }
 }
 /* @import url(); 引入css类 */
 </style>

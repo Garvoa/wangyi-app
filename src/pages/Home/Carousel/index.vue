@@ -2,11 +2,8 @@
 <template>
   <div>
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item>
-        <img
-          src="https://yanxuan.nosdn.127.net/7406334eaca021f7316b86ee21c3f320.jpg?type=webp&imageView&quality=75&thumbnail=750x0"
-          alt
-        />
+      <van-swipe-item v-for="(item,index) in getfocusList" :key="index">
+        <img :src="item.picUrl" alt />
       </van-swipe-item>
       <van-swipe-item>
         <img
@@ -25,11 +22,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {}
   },
   methods: {},
+  computed: {
+    ...mapGetters(['getfocusList'])
+  },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）

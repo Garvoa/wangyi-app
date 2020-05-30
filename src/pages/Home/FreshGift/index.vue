@@ -8,27 +8,17 @@
         <img src="//yanxuan.nosdn.127.net/352b0ea9b2d058094956efde167ef852.png" alt />
       </div>
       <div class="freshGift-right">
-        <div class="freshGift-right-item">
+        <div
+          class="freshGift-right-item"
+          v-for="(item,index) in getindexActivityModule"
+          :key="index"
+        >
           <div>
-            <p>福利社</p>
-            <p>今日特价</p>
+            <p>{{item.title}}</p>
+            <p>{{item.subTitle||item.tag}}</p>
           </div>
 
-          <img
-            src="https://yanxuan-item.nosdn.127.net/f444ac11115a8249a92dc95dccad6e07.png?quality=75&type=webp&imageView&thumbnail=200x200"
-            alt
-          />
-        </div>
-        <div class="freshGift-right-item">
-          <div>
-            <p>新人拼团</p>
-            <p>1元起包邮</p>
-          </div>
-
-          <img
-            src="https://yanxuan-item.nosdn.127.net/08ed8b0e068a3ff2a0aae8c427db1858.png?quality=75&type=webp&imageView&thumbnail=200x200"
-            alt
-          />
+          <img :src="item.picUrl||item.targetUrl" alt />
         </div>
       </div>
     </div>
@@ -36,11 +26,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {}
   },
   methods: {},
+  computed: {
+    ...mapGetters(['getindexActivityModule'])
+  },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）

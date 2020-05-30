@@ -1,22 +1,15 @@
 <!--  -->
 <template>
   <ul class="g-grow">
-    <li class="item">
-      <img src="https://yanxuan.nosdn.127.net/a03dd909803b9ac032eba58b7253a2f6.png" alt />
-      <span>网易自营品牌</span>
-    </li>
-    <li class="item">
-      <img src="https://yanxuan.nosdn.127.net/a03dd909803b9ac032eba58b7253a2f6.png" alt />
-      <span>30天无忧退货</span>
-    </li>
-    <li class="item">
-      <img src="https://yanxuan.nosdn.127.net/a03dd909803b9ac032eba58b7253a2f6.png" alt />
-      <span>48小时快速退款</span>
+    <li class="item" v-for="(item,index) in getpolicyDescList" :key="index">
+      <img :src="item.icon" alt />
+      <span>{{item.desc}}</span>
     </li>
   </ul>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {}
@@ -24,6 +17,9 @@ export default {
   methods: {},
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
+  computed: {
+    ...mapGetters(['getpolicyDescList'])
+  },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {}
 }
