@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import { Button, Field, Icon, Tabbar, TabbarItem, Swipe, SwipeItem, Overlay } from 'vant';
+import { Button, Field, Icon, Tabbar, TabbarItem, Swipe, SwipeItem, Overlay, } from 'vant';
 import "swiper/css/swiper.css"
+import router from "./routers"
 Vue.use(Button);
 Vue.use(Field)
 Vue.use(Icon)
@@ -14,4 +15,5 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
+  router
 }).$mount('#app')

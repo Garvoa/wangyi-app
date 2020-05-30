@@ -161,7 +161,7 @@
                 alt
               />
               <span>选妹</span>
-              <img src="./assets/liulan.png" alt class="m-userName" />
+              <img src="@/assets/liulan.png" alt class="m-userName" />
               <span>111</span>
             </div>
           </li>
@@ -179,7 +179,7 @@
                 alt
               />
               <span>选妹</span>
-              <img src="./assets/liulan.png" alt class="m-userName" />
+              <img src="@/assets/liulan.png" alt class="m-userName" />
               <span>112</span>
             </div>
           </li>
@@ -197,7 +197,7 @@
                 alt
               />
               <span>选妹</span>
-              <img src="./assets/liulan.png" alt class="m-userName" />
+              <img src="@/assets/liulan.png" alt class="m-userName" />
               <span>112</span>
             </div>
           </li>
@@ -219,7 +219,7 @@
                 alt
               />
               <span>选妹</span>
-              <img src="./assets/liulan.png" alt class="m-userName" />
+              <img src="@/assets/liulan.png" alt class="m-userName" />
               <span>112</span>
             </div>
           </li>
@@ -237,7 +237,7 @@
                 alt
               />
               <span>选妹</span>
-              <img src="./assets/liulan.png" alt class="m-userName" />
+              <img src="@/assets/liulan.png" alt class="m-userName" />
               <span>112</span>
             </div>
           </li>
@@ -255,7 +255,7 @@
                 alt
               />
               <span>选妹</span>
-              <img src="./assets/liulan.png" alt class="m-userName" />
+              <img src="@/assets/liulan.png" alt class="m-userName" />
               <span>112</span>
             </div>
           </li>

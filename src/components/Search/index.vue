@@ -1,15 +1,10 @@
 <!--  -->
 <template>
-  <div>
-    <router-view></router-view>
-    <Tabbar />
-  </div>
+  <div></div>
 </template>
 
 <script>
-import Tabbar from './components/Tabbar'
 export default {
-  components: { Tabbar },
   data() {
     return {}
   },
