@@ -18,8 +18,24 @@
       <img src="../../assets/39c5e4583753d4c3cb868a64c2c109ea.png" alt />
     </div>
     <div class="login">
-      <van-button type="danger">手机号快捷登录</van-button>
-      <van-button plain hairline color="red" type="info">邮箱帐号登录</van-button>
+      <div class="van-cell-1">
+        <van-field
+          v-model="username"
+          name="pattern"
+          label="用户名"
+          placeholder="请输入用户名"
+          :rules="[{ pattern, message: '4到16位（字母，数字，下划线，减号）' }]"
+        />
+        <van-field
+          v-model="password"
+          name="pattern"
+          label="密码"
+          placeholder="请输入密码"
+          :rules="[{ pattern, message: '4到16位（字母，数字，下划线，减号）' }]"
+        />
+      </div>
+      <van-button type="danger" @click="onSubmit">登录</van-button>
+      <van-button plain hairline color="red" type="info" @click="toRegiser">立即注册</van-button>
     </div>
     <div class="qitalogin">
       <div>
@@ -47,9 +63,35 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      pattern: /[a-zA-Z0-9_-]{6,10}/,
+      username: '',
+      password: ''
+    }
   },
-  methods: {},
+  methods: {
+    toRegiser() {
+      this.$router.push({ path: '/register' })
+    },
+
+    async onSubmit() {
+      const user = {
+        username: this.username,
+        password: this.password
+      }
+      const result = await this.$store.dispatch('reqLoginUser', user)
+      const { code, data, msg } = result.data
+
+      if (code === 200) {
+        this.$store.commit('USER_INFO', data)
+        window.localStorage.setItem('token', data.Token)
+        this.$toast(msg)
+        this.$router.push({ path: '/user' })
+      } else {
+        this.$toast(msg)
+      }
+    }
+  },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）
@@ -94,6 +136,9 @@ export default {
     text-align: center;
     img {
       width: 140px;
+    }
+    .van-cell-1 {
+      width: 90%;
     }
   }
   .login {

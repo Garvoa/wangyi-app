@@ -8,8 +8,12 @@ export default [
     component: () => import('../pages/GoodsList')
   },
   {
-    path: "/lgoin",
+    path: "/login",
     component: () => import('../pages/Login')
+  },
+  {
+    path: "/register",
+    component: () => import('../pages/Register')
   },
   {
     path: "/shoppingcart",

@@ -75,8 +75,12 @@ export default {
         c.name === title ? (p = c.id) : ''
         return p
       }, '')
+      this.$store.commit('DELETE_CateModulenavitemData')
+      const cache = window.sessionStorage.getItem(`${this.id}`)
 
-      this.$store.dispatch('reqindexCateModulenavitemData', this.id)
+      cache
+        ? this.$store.commit('UPDATA_CateModulenavitemData', JSON.parse(cache))
+        : this.$store.dispatch('reqindexCateModulenavitemData', this.id)
       this.updataIndex(name)
     }
   },

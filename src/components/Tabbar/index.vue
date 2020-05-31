@@ -13,9 +13,7 @@
     <van-tabbar-item icon="shopping-cart-o">
       <router-link to="/shoppingcart">购物车</router-link>
     </van-tabbar-item>
-    <van-tabbar-item icon="user-circle-o">
-      <router-link to="/login">个人</router-link>
-    </van-tabbar-item>
+    <van-tabbar-item icon="user-circle-o" @click="toUser">个人</van-tabbar-item>
   </van-tabbar>
 </template>
 
@@ -26,7 +24,14 @@ export default {
       active: 0
     }
   },
-  methods: {},
+  methods: {
+    toUser() {
+      if (this.$store.state.user.token) {
+        console.log(this.$router)
+        this.$router.push({ path: '/login' })
+      }
+    }
+  },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）

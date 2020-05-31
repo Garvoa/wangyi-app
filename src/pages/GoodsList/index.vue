@@ -7,19 +7,17 @@
     </van-button>
     <div class="line"></div>
     <section class="centent">
+      <!-- <van-tree-select :items="items" :main-active-index.sync="activeIndex" /> -->
       <ul class="left">
-        <li class="item active">618专区</li>
-        <li class="item">爆品专区</li>
-        <li class="item">新品专区</li>
-        <li class="item">居家生活</li>
-        <li class="item">服饰鞋包</li>
-        <li class="item">美食酒水</li>
-        <li class="item">个人清洁</li>
-        <li class="item">母婴亲子</li>
-        <li class="item">运动旅行</li>
-        <li class="item">数码家电</li>
+        <li
+          class="item"
+          :class="{'active':actvieIndex===index}"
+          v-for="(item,index) in categoryLeftData[0].categoryL1List"
+          :key="index"
+          @click="switchList(index)"
+        >{{item.name}}</li>
       </ul>
-      <div class="punctuation"></div>
+      <div class="punctuation" ref="ptc"></div>
       <div class="right">
         <img
           class="banner"
@@ -101,18 +99,33 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
       active: '',
-      show: false
+      show: false,
+      actvieIndex: 0
     }
   },
-  methods: {},
+  computed: {
+    ...mapState({
+      categoryLeftData: state => state.categoryLeft.categoryLeftData
+    })
+  },
+  methods: {
+    switchList(index) {
+      let num = 46 * index
+      this.$refs.ptc.style.transform = `translatey(${num}px)`
+      this.actvieIndex = index
+    }
+  },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）
-  mounted() {}
+  mounted() {
+    this.$store.dispatch('reqcategoryLeftData')
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -145,7 +158,7 @@ export default {
       border-right: 1px solid #dddddd;
 
       .item {
-        padding: 30px 0 0 10px;
+        margin: 30px 0 0 10px;
       }
       .active {
         color: red;
@@ -175,10 +188,12 @@ export default {
     }
     .punctuation {
       width: 2px;
-      height: 20px;
+      height: 22px;
       position: absolute;
       background-color: red;
-      transform: translatey(30px);
+      top: 30px;
+      transition: 0.5s;
+      // transform: translatey(30px);
     }
   }
 }
