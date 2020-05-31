@@ -2,21 +2,24 @@
 <template>
   <div class="home">
     <!-- 头部导航 -->
-    <HeadNav />
+    <HeadNav :updataIndex="updataIndex" />
     <!-- 轮播图 -->
     <Carousel />
-    <!-- 官方信息 -->
-    <OfficialMsg />
-    <!-- 商品列表 -->
-    <HomeGoodsList />
-    <!-- 促销 -->
-    <Promotion />
-    <!-- 新人专享礼 -->
-    <FreshGift />
-    <!-- 楼层 -->
-    <Floor />
-    <!-- 底部区域 -->
-    <Footer />
+    <div v-if="homeIndex===0">
+      <!-- 官方信息 -->
+      <OfficialMsg />
+      <!-- 商品列表 -->
+      <HomeGoodsList />
+      <!-- 促销 -->
+      <Promotion />
+      <!-- 新人专享礼 -->
+      <FreshGift />
+      <!-- 楼层 -->
+      <Floor />
+      <!-- 底部区域 -->
+      <Footer />
+    </div>
+    <NavItem v-else />
   </div>
 </template>
 
@@ -29,6 +32,7 @@ import Promotion from './Promotion'
 import FreshGift from './FreshGift'
 import Floor from './Floor'
 import Footer from './Footer'
+import NavItem from '../../components/NavItem'
 
 export default {
   components: {
@@ -39,12 +43,19 @@ export default {
     FreshGift,
     Floor,
     Footer,
-    Promotion
+    Promotion,
+    NavItem
   },
   data() {
-    return {}
+    return {
+      homeIndex: 0
+    }
   },
-  methods: {},
+  methods: {
+    updataIndex(index) {
+      this.homeIndex = index
+    }
+  },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）

@@ -23,17 +23,22 @@
       <div class="nav-selsect">
         <span class="tabAlter" v-if="!isShow">全部频道</span>
 
-        <Slider v-if="isShow" />
+        <van-tabs v-if="isShow" v-model="navIndex" @click="selectActive">
+          <van-tab
+            v-for="(item,index) in CateModulenavList"
+            :key="index"
+            class="van-tabitem"
+            :title="item.name"
+          ></van-tab>
+        </van-tabs>
         <div class="moreCate isshow" v-else>
-          <van-button class="cateTag nav-selsect-active">推荐</van-button>
-          <van-button class="cateTag">居家生活</van-button>
-          <van-button class="cateTag">服饰鞋包</van-button>
-          <van-button class="cateTag">美食酒水</van-button>
-          <van-button class="cateTag">个护清洁</van-button>
-          <van-button class="cateTag">母婴亲子</van-button>
-          <van-button class="cateTag">运动流行</van-button>
-          <van-button class="cateTag">数码家电</van-button>
-          <van-button class="cateTag">严选全球</van-button>
+          <van-button
+            class="cateTag"
+            :class="navIndex===index?'nav-selsect-active':''"
+            v-for="(item,index) in CateModulenavList"
+            :key="index"
+            @click="selectActive(index)"
+          >{{item.name}}</van-button>
         </div>
 
         <div id="toggle" @touchstart.stop.prevent="isShowSelsect">
@@ -47,19 +52,37 @@
 </template>
 
 <script>
-import Slider from '../../../components/Slider'
+import { mapState } from 'vuex'
 export default {
-  components: { Slider },
+  props: {
+    updataIndex: Function
+  },
   data() {
     return {
       isShow: true,
-      value: ''
+      value: '',
+      navIndex: 0
     }
   },
   methods: {
     isShowSelsect() {
       this.isShow = !this.isShow
+    },
+    selectActive(name, title) {
+      this.navIndex = name
+      this.id = this.CateModulenavList.reduce((p, c) => {
+        c.name === title ? (p = c.id) : ''
+        return p
+      }, '')
+
+      this.$store.dispatch('reqindexCateModulenavitemData', this.id)
+      this.updataIndex(name)
     }
+  },
+  computed: {
+    ...mapState({
+      CateModulenavList: state => state.cateModulenav.CateModulenavListData
+    })
   },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
@@ -74,6 +97,9 @@ export default {
   top: 0px;
   left: 0px;
   right: 0px;
+  // /deep/ .van-tab__text {
+
+  // }
   nav {
     padding-top: 10px;
     position: relative;
@@ -117,12 +143,13 @@ export default {
     position: relative;
     #toggle {
       position: absolute;
-      right: 0;
-      top: 15px;
-      width: 50px;
-      height: 20px;
+      right: 0px;
+      top: -0px;
+      width: 83px;
+      height: 44px;
       background-color: white;
       text-align: center;
+      line-height: 55px;
     }
     .tabAlter {
       position: absolute;
@@ -155,14 +182,10 @@ export default {
             font-size: 12px;
           }
         }
+        &:nth-last-child(1) {
+          display: none;
+        }
       }
-    }
-
-    .toggle {
-      margin-left: 30px;
-      position: absolute;
-      right: 20px;
-      top: 5px;
     }
   }
   // .nav-Line {
@@ -172,5 +195,6 @@ export default {
   //   transform: translateX(30px);
   // }
 }
+
 /* @import url(); 引入css类 */
 </style>

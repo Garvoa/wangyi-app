@@ -5,3 +5,5 @@ export const reqHome = () => ajax.get('/home')
 export const reqcategoryRight = () => ajax.get('/categoryRight')
 // 商品列表左侧
 export const reqcategoryLeft = (id) => ajax.get('/categoryLeft', id)
+export const reqindexCateModulenavitem = (id) => ajax.post(`/indexCateModule/navitem`, { id })
+export const reqindexCateModulenavList = () => ajax.get('/indexCateModule/navList')

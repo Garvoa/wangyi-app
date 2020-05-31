@@ -21,6 +21,7 @@ export default {
   mounted() {
     console.log(this.$store)
     this.$store.dispatch('reqHomeData')
+    this.$store.dispatch('reqindexCateModulenavListData')
   }
 }
 </script>
