@@ -23,124 +23,16 @@
       <div>
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/c61f80c59ecd986c3a87599b8403a16f.gif?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/9d8114ce4ef435ceac5e82120efeec4c.png?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/c61f80c59ecd986c3a87599b8403a16f.gif?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/9d8114ce4ef435ceac5e82120efeec4c.png?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/c61f80c59ecd986c3a87599b8403a16f.gif?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/9d8114ce4ef435ceac5e82120efeec4c.png?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/c61f80c59ecd986c3a87599b8403a16f.gif?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/9d8114ce4ef435ceac5e82120efeec4c.png?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/c61f80c59ecd986c3a87599b8403a16f.gif?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/9d8114ce4ef435ceac5e82120efeec4c.png?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/c61f80c59ecd986c3a87599b8403a16f.gif?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
-              </div>
-              <div>
-                <img
-                  src="https://yanxuan.nosdn.127.net/9d8114ce4ef435ceac5e82120efeec4c.png?imageView&quality=65&thumbnail=120x120"
-                  alt
-                />
-                <span>入选就有红包</span>
-                <span>员工精选</span>
+            <div class="swiper-slide" v-for="(item,index) in WorthBuyingData" :key="index">
+              <div v-for="(pic,index) in item" :key="index" class="swiper-item">
+                <img :src="pic? pic.picUrl:''" alt />
+                <span v-if="pic">{{pic.mainTitle}}</span>
+                <span v-if="pic">{{pic.viceTitle}}</span>
               </div>
             </div>
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <!-- <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>-->
-
-          <!-- 如果需要滚动条 -->
-          <div class="swiper-scrollbar"></div>
         </div>
       </div>
     </div>
@@ -266,33 +158,51 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Swiper from 'swiper'
 export default {
   data() {
     return {}
   },
   methods: {},
+  computed: {
+    ...mapState({ WorthBuyingData: state => state.worthBuying.WorthBuyingData })
+  },
+  watch: {
+    WorthBuyingData() {
+      this.$nextTick(() => {
+        new Swiper('.swiper-container', {
+          // direction: 'vertical', // 垂直切换选项
+          // loop: true, // 循环模式选项
+          slidesPerView: 4,
+          // 如果需要分页器
+          pagination: {
+            el: '.swiper-pagination',
+            type: 'custom',
+            renderCustom: function(swiper, current, total) {
+              var customPaginationHtml = ''
+              for (var i = 0; i < total; i++) {
+                //判断哪个分页器此刻应该被激活
+                if (i == current - 1) {
+                  customPaginationHtml +=
+                    '<span class="swiper-pagination-customs swiper-pagination-customs-active"></span>'
+                } else {
+                  customPaginationHtml +=
+                    '<span class="swiper-pagination-customs"></span>'
+                }
+              }
+              return customPaginationHtml
+            }
+          }
+        })
+      })
+    }
+  },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
-    new Swiper('.swiper-container', {
-      // direction: 'vertical', // 垂直切换选项
-      // loop: true, // 循环模式选项
-      slidesPerView: 4,
-      // 如果需要分页器
-      // pagination: {
-      //   el: '.swiper-pagination',
-      //   type: 'progressbar'
-      // },
-
-      // 如果需要前进后退按钮
-
-      // 如果需要滚动条
-      scrollbar: {
-        el: '.swiper-scrollbar'
-      }
-    })
+    this.$store.dispatch('reqreqWorthBuyingData')
   }
 }
 </script>
@@ -360,8 +270,9 @@ export default {
         .swiper-slide {
           margin-top: 5px;
           text-align: center;
-
-          div {
+          width: 100px;
+          .swiper-item {
+            width: 100px;
             margin-top: 10px;
             span {
               white-space: nowrap;
@@ -374,6 +285,24 @@ export default {
               height: 50px;
             }
           }
+        }
+      }
+
+      /deep/ .swiper-pagination {
+        bottom: 5px;
+        /deep/ .swiper-pagination-customs {
+          width: 30px;
+          height: 4px;
+          display: inline-block;
+          background: #000;
+          opacity: 0.3;
+          margin-top: 5px;
+        }
+
+        /*自定义分页器激活时的样式表现*/
+        /deep/ .swiper-pagination-customs-active {
+          opacity: 1;
+          background-color: #f78e00;
         }
       }
     }

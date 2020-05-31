@@ -85,6 +85,7 @@ export default {
       if (code === 200) {
         this.$store.commit('USER_INFO', data)
         window.localStorage.setItem('token', data.Token)
+
         this.$toast(msg)
         this.$router.push({ path: '/user' })
       } else {

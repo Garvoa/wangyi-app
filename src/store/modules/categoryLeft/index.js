@@ -12,10 +12,10 @@ const actions = {
   async reqcategoryLeftData({ commit }) {
 
     const result = await reqcategoryLeft()
-    const { data, code } = result.data
-    if (code === 200) {
+    result.data.result
+    if (result.data.code === 200) {
       console.log(result)
-      commit('UPDATA_categoryLeftData', data)
+      commit('UPDATA_categoryLeftData', result.data.result[0])
     }
   }
 }

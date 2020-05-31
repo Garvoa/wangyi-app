@@ -8,11 +8,11 @@
     <div class="line"></div>
     <section class="centent">
       <!-- <van-tree-select :items="items" :main-active-index.sync="activeIndex" /> -->
-      <ul class="left">
+      <ul class="left" v-if="categoryLeftData">
         <li
           class="item"
           :class="{'active':actvieIndex===index}"
-          v-for="(item,index) in categoryLeftData[0].categoryL1List"
+          v-for="(item,index) in categoryLeftData.categoryL1List"
           :key="index"
           @click="switchList(index)"
         >{{item.name}}</li>
@@ -191,7 +191,7 @@ export default {
       height: 22px;
       position: absolute;
       background-color: red;
-      top: 30px;
+      top: 25px;
       transition: 0.5s;
       // transform: translatey(30px);
     }

@@ -9,3 +9,5 @@ export const reqindexCateModulenavitem = (id) => ajax.post(`/indexCateModule/nav
 export const reqindexCateModulenavList = () => ajax.get('/indexCateModule/navList')
 export const reqRegister = (user) => ajax.post('/register', user)
 export const reqLogin = (user) => ajax.post('/login', user)
+export const reqWorthBuying = () => ajax.get('/worthBuying')
+
