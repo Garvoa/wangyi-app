@@ -37,7 +37,7 @@
             :class="navIndex===index?'nav-selsect-active':''"
             v-for="(item,index) in CateModulenavList"
             :key="index"
-            @click="selectActive(index)"
+            @click="selectActive(index,item.name)"
           >{{item.name}}</van-button>
         </div>
 
@@ -70,6 +70,7 @@ export default {
     },
     selectActive(name, title) {
       this.navIndex = name
+      this.isShow = true
       this.id = this.CateModulenavList.reduce((p, c) => {
         c.name === title ? (p = c.id) : ''
         return p
