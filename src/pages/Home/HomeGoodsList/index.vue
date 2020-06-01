@@ -29,10 +29,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   background-color: white;
+  justify-content: center;
   .goodsItem {
     display: flex;
     flex-direction: column;
-    margin: 10px;
+
+    margin: 2%;
     font-size: 12px;
     img {
       width: 55px;

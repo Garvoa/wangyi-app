@@ -9,9 +9,9 @@ const mutations = {
   }
 }
 const actions = {
-  async reqcategoryRightData({ commit }) {
+  async reqcategoryRightData({ commit }, id) {
 
-    const result = await reqcategoryRight()
+    const result = await reqcategoryRight(id)
     const { data, code } = result.data
     if (code === 200) {
       // console.log(result)
@@ -19,7 +19,15 @@ const actions = {
     }
   }
 }
-const getters = {}
+const getters = {
+  categoryList(state) {
+    console.log(state)
+    return state.categoryRightData ? state.categoryRightData.categoryList : []
+  },
+  subCateList(state) {
+    return state.categoryRightData ? state.categoryRightData.subCateList : []
+  }
+}
 export default {
   state, mutations, actions, getters
 }

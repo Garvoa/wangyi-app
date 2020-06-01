@@ -17,6 +17,7 @@
           class="loginSeach"
           placeholder="搜索商品，共254615款好物"
           size="large"
+          @click="toSearch"
         />
         <van-button class="loginBtn">登录</van-button>
       </div>
@@ -82,6 +83,9 @@ export default {
         ? this.$store.commit('UPDATA_CateModulenavitemData', JSON.parse(cache))
         : this.$store.dispatch('reqindexCateModulenavitemData', this.id)
       this.updataIndex(name)
+    },
+    toSearch() {
+      this.$router.push({ path: '/search' })
     }
   },
   computed: {

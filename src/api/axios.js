@@ -1,9 +1,6 @@
 import axios from "axios"
-// const errMsg = {
-//   404: 'Network Error',
-// }
 const ajax = axios.create({
-  baseURL: '/api',
+
   timeout: 20000
 })
 ajax.interceptors.request.use(config => {
@@ -11,6 +8,7 @@ ajax.interceptors.request.use(config => {
   if (token) {
     config.headers['authorization'] = token
   }
+
   return config
 
 })

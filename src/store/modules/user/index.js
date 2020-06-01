@@ -6,6 +6,9 @@ const state = {
 const mutations = {
   USER_INFO(state, user) {
     state.token = user.token
+  },
+  DELELT_USER_INFO(state) {
+    state.token = ''
   }
 }
 const actions = {

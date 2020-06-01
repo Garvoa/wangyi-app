@@ -9,7 +9,7 @@
   function setBodyFontSize() {
     // 如果页面中有body这个元素，就设置body的字体大小
     if (document.body) {
-      document.body.style.fontSize = "13px";
+      document.body.style.fontSize = "0.13rem";
     } else {
       // 如果页面中没有body这个元素，则等着页面的主要DOM元素加载完毕再去设置body的字体大小
       document.addEventListener("DOMContentLoaded", setBodyFontSize);

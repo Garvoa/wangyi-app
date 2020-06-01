@@ -16,6 +16,10 @@ export default [
     component: () => import('../pages/Register')
   },
   {
+    path: "/search",
+    component: () => import('../pages/Search')
+  },
+  {
     path: "/shoppingcart",
     component: () => import('../pages/ShoppingCart')
   },

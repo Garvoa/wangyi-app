@@ -1,96 +1,43 @@
 <!--  -->
 <template>
   <div class="classifyList">
-    <van-button class="search">
-      <van-icon name="search" size="0.18rem" class="icon" />
-      <span>搜索商品，共254615款好物</span>
-    </van-button>
-    <div class="line"></div>
+    <div class="mask">
+      <van-search v-model="value" class="search" placeholder="搜索商品，共254615款好物" />
+    </div>
     <section class="centent">
-      <!-- <van-tree-select :items="items" :main-active-index.sync="activeIndex" /> -->
       <ul class="left" v-if="categoryLeftData">
         <li
           class="item"
           :class="{'active':actvieIndex===index}"
           v-for="(item,index) in categoryLeftData.categoryL1List"
           :key="index"
-          @click="switchList(index)"
+          @click="switchList($event,index,item.id)"
         >{{item.name}}</li>
       </ul>
-      <div class="punctuation" ref="ptc"></div>
-      <div class="right">
-        <img
-          class="banner"
-          src="https://yanxuan.nosdn.127.net/2c669cac8b0844bbd2620a5172a53dbd.jpg?quality=75&type=webp&imageView&thumbnail=0x196"
-          alt
-        />
-        <ul>
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
 
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
-          <li>
-            <img
-              src="https://yanxuan.nosdn.127.net/ddf44708f576246755479a7261932b3b.png?quality=75&type=webp&imageView&thumbnail=144x144"
-              alt
-            />
-            <span>99专区</span>
-          </li>
-        </ul>
-      </div>
+      <div class="punctuation" ref="ptc"></div>
+      <van-pull-refresh
+        v-model="isLoading"
+        :head-height="80"
+        @refresh="onRefresh"
+        pulling-text=" "
+        loosing-text=" "
+        loading-text=" "
+      >
+        <div class="right">
+          <img
+            class="banner"
+            src="https://yanxuan.nosdn.127.net/2c669cac8b0844bbd2620a5172a53dbd.jpg?quality=75&type=webp&imageView&thumbnail=0x196"
+            alt
+          />
+          <ul>
+            <li v-for="item in categoryList?categoryList:subCateList" :key="item.id">
+              <img :src="item.wapBannerUrl" alt />
+              <span>{{item.name}}</span>
+            </li>
+          </ul>
+        </div>
+      </van-pull-refresh>
     </section>
     <div class="line"></div>
 
@@ -99,25 +46,38 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
       active: '',
       show: false,
-      actvieIndex: 0
+      actvieIndex: 0,
+      value: '',
+      isLoading: false
     }
   },
   computed: {
     ...mapState({
-      categoryLeftData: state => state.categoryLeft.categoryLeftData
-    })
+      categoryLeftData: state => state.categoryLeft.categoryLeftData,
+      categoryRightData: state => state.categoRight.categoryRightData
+    }),
+    ...mapGetters(['categoryList', 'subCateList'])
   },
   methods: {
-    switchList(index) {
-      let num = 46 * index
+    switchList(e, index, id) {
+      console.log(e.target.clientHeight)
+      let num = 40 * index
+      console.log(num)
       this.$refs.ptc.style.transform = `translatey(${num}px)`
       this.actvieIndex = index
+      this.$store.dispatch('reqcategoryRightData', id)
+    },
+    onRefresh() {
+      setTimeout(() => {
+        this.isLoading = false
+      }, 10)
     }
   },
   //生命周期 - 创建完成（访问当前this实例）
@@ -125,6 +85,7 @@ export default {
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
     this.$store.dispatch('reqcategoryLeftData')
+    this.$store.dispatch('reqcategoryRightData', 11)
   }
 }
 </script>
@@ -133,11 +94,19 @@ export default {
   width: 100%;
   height: 100%;
   text-align: center;
+  .mask {
+    width: 100%;
+    height: 55px;
+    padding-top: 10px;
+    position: fixed;
+    background-color: #eee;
+    z-index: 20;
+  }
   .search {
-    margin-top: 10px;
+    margin: auto;
     border-radius: 10px;
     background-color: #dddddd;
-    width: 90%;
+    width: 80%;
     height: 40px;
     .icon {
       vertical-align: middle;
@@ -146,35 +115,46 @@ export default {
   .line {
     width: 100%;
     height: 1px;
-    margin-top: 10px;
+
     background-color: #dddddd;
+    position: absolute;
+    top: 8%;
   }
   .centent {
     display: flex;
-    position: relative;
+
     .left {
+      z-index: 10;
       white-space: nowrap;
       padding-right: 10px;
       border-right: 1px solid #dddddd;
+      position: fixed;
+      left: 0px;
+      top: 8%;
 
       .item {
-        margin: 30px 0 0 10px;
+        margin: 25px 0 0 10px;
       }
       .active {
         color: red;
       }
     }
     .right {
+      margin-top: 70px;
+      overflow: hidden;
       .banner {
         width: 250px;
         margin: 10px;
+        margin-left: 20%;
       }
       ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
+        margin-bottom: 12%;
+        margin-left: 22%;
+        overflow: hidden;
 
         li {
+          float: left;
+          width: 40%;
           margin: 10px 10px;
           span {
             display: block;
@@ -191,7 +171,7 @@ export default {
       height: 22px;
       position: absolute;
       background-color: red;
-      top: 25px;
+      top: 11%;
       transition: 0.5s;
       // transform: translatey(30px);
     }

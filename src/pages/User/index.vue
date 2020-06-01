@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div>
+  <div class="wrap">
     <header>
       <div class="user">
         <div class="userleft">
@@ -52,59 +52,86 @@
       </div>
       <div class="myuMenu">
         <ul class="list">
-          <li class="item active">
-            <van-icon name="like" size="0.2rem" />
-            <span>我的订单</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>购卡白赚30元</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>周六一起拼</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>售后服务</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>邀请返利</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>优选购</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>积分中心</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>会员俱乐部</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>地址管理</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>账号安全</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>帮助与客服</span>
-          </li>
-          <li class="item">
-            <van-icon name="like" size="0.2rem" />
-            <span>意见反馈</span>
-          </li>
+          <a href="javascript:;">
+            <li class="item active">
+              <i class="icon-m"></i>
+              <span>我的订单</span>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>购卡白赚30元</span>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>周六一起拼</span>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>售后服务</span>
+            </li>
+          </a>
+
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>邀请返利</span>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>优选购</span>
+            </li>
+          </a>
+
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>积分中心</span>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>会员俱乐部</span>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>地址管理</span>
+            </li>
+          </a>
+
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>账号安全</span>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>帮助与客服</span>
+            </li>
+          </a>
+          <a href="javascript:;">
+            <li class="item">
+              <i class="icon-m"></i>
+              <span>意见反馈</span>
+            </li>
+          </a>
         </ul>
       </div>
     </section>
     <footer>
-      <van-button>退出登录</van-button>
+      <van-button @click="signOut">退出登录</van-button>
     </footer>
   </div>
 </template>
@@ -114,7 +141,21 @@ export default {
   data() {
     return {}
   },
-  methods: {},
+  methods: {
+    signOut() {
+      this.$dialog
+        .confirm({
+          title: '',
+          message: '是否退出登录'
+        })
+        .then(() => {
+          this.$store.commit('DELELT_USER_INFO')
+          window.localStorage.removeItem('token')
+          this.$router.push({ path: '/login' })
+        })
+        .catch(() => {})
+    }
+  },
   //生命周期 - 创建完成（访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）
@@ -122,6 +163,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.wrap {
+  overflow: hidden;
+}
 .user {
   width: 100%;
   height: 150px;
@@ -209,7 +253,7 @@ export default {
   li {
     float: left;
     width: 20%;
-    // padding: 0 20px;
+
     text-align: center;
 
     span {
@@ -223,6 +267,10 @@ export default {
   background-color: white;
   overflow: hidden;
   .list {
+    a {
+      text-decoration: none;
+      color: #333;
+    }
     .item {
       width: 33%;
       height: 90px;
@@ -234,9 +282,86 @@ export default {
       position: relative;
       border-right: 1px solid #dddddd;
       border-bottom: 1px solid #dddddd;
-    }
-    .active {
-      color: red;
+      &:nth-child(1) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -438.7px;
+        }
+      }
+      &:nth-child(2) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -466px;
+        }
+      }
+      &:nth-child(3) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -494.7px;
+        }
+      }
+      &:nth-child(4) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -524.7px;
+        }
+      }
+      &:nth-child(5) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -553.7px;
+        }
+      }
+      &:nth-child(6) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -581.7px;
+        }
+      }
+      &:nth-child(7) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -610.7px;
+        }
+      }
+      &:nth-child(8) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -408.7px;
+        }
+      }
+      &:nth-child(9) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -382px;
+        }
+      }
+      &:nth-child(10) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -355px;
+        }
+      }
+      &:nth-child(11) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -328px;
+        }
+      }
+      &:nth-child(12) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -298px;
+        }
+      }
+
+      .icon-m {
+        width: 40px;
+        height: 30px;
+        background-image: url('../../assets/7a838705-f2cd-4bf2-9a86-60eaa85e7241.png');
+        background-size: 40px, 30px;
+        background-repeat: no-repeat;
+      }
     }
   }
 }

@@ -17,7 +17,13 @@ module.exports = {
         target: 'http://localhost:3001',
         ws: true,
         changeOrigin: true
+      },
+      '/xhr': {
+        target: 'https://m.you.163.com',
+        ws: true,
+        changeOrigin: true
       }
+
     }
   }
 }

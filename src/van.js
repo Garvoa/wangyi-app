@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Button, Field, Icon, Tabbar, TabbarItem, Swipe, SwipeItem, Overlay, Tab, Tabs, Form, Toast, TreeSelect } from 'vant';
+import { Button, Field, Icon, Tabbar, TabbarItem, Swipe, SwipeItem, Overlay, Tab, Tabs, Dialog, Form, Toast, TreeSelect, Search, PullRefresh, ActionSheet, Cell } from 'vant';
 
 
 Vue.use(Button);
@@ -15,3 +15,8 @@ Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Toast);
 Vue.use(TreeSelect);
+Vue.use(Dialog);
+Vue.use(Search);
+Vue.use(PullRefresh);
+Vue.use(ActionSheet);
+Vue.use(Cell);

@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <van-tabbar v-model="active">
+  <van-tabbar v-model="active" class="tabbar">
     <van-tabbar-item icon="home-o">
       <router-link to="/">首页</router-link>
     </van-tabbar-item>
@@ -37,6 +37,9 @@ export default {
   mounted() {}
 }
 </script>
-<style scoped>
+<style lang="less"  scoped>
+.tabbar {
+  z-index: 100;
+}
 /* @import url(); 引入css类 */
 </style>
