@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <van-tabbar v-model="active" class="tabbar">
+  <van-tabbar v-model="active" class="tabbar" v-show="isTabbar">
     <van-tabbar-item icon="home-o">
       <router-link to="/">首页</router-link>
     </van-tabbar-item>
@@ -23,7 +23,19 @@
 export default {
   data() {
     return {
-      active: 0
+      active: 0,
+      isTabbar: true
+    }
+  },
+
+  watch: {
+    $route() {
+      const { path } = this.$route
+      if (path === '/search') {
+        this.isTabbar = false
+      } else {
+        this.isTabbar = true
+      }
     }
   },
   methods: {

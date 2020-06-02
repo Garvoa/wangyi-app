@@ -12,12 +12,19 @@ export default [
     component: () => import('../pages/Login')
   },
   {
+    path: "/ddd",
+    component: () => import('../components/ddd')
+  },
+
+  {
     path: "/register",
     component: () => import('../pages/Register')
   },
   {
     path: "/search",
-    component: () => import('../pages/Search')
+    component: () => import('../pages/Search'),
+
+
   },
   {
     path: "/shoppingcart",

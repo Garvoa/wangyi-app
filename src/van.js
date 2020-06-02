@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import { Button, Field, Icon, Tabbar, TabbarItem, Swipe, SwipeItem, Overlay, Tab, Tabs, Dialog, Form, Toast, TreeSelect, Search, PullRefresh, ActionSheet, Cell } from 'vant';
+import { Button, Field, Icon, Tabbar, TabbarItem, Swipe, SwipeItem, Overlay, Tab, Tabs, Dialog, Form, Toast, TreeSelect, Search, PullRefresh, ActionSheet, Cell, List, RadioGroup, Radio, Loading } from 'vant';
 
-
+Vue.use(Radio);
+Vue.use(RadioGroup);
 Vue.use(Button);
 Vue.use(Field)
 Vue.use(Icon)
@@ -20,3 +21,5 @@ Vue.use(Search);
 Vue.use(PullRefresh);
 Vue.use(ActionSheet);
 Vue.use(Cell);
+Vue.use(List);
+Vue.use(Loading);
