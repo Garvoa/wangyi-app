@@ -23,5 +23,13 @@ export const reqLoadingList = (keyword, size, itemId) => ajax.post(`/xhr/search/
 export const reqDescList = ({ keyword, size, sortType, floorPrice, upperPrice, descSorted, categoryId }) => ajax.post(`/xhr/search/search.json?keyword=${keyword}&size=${size}&sortType=${sortType}&floorPrice=${floorPrice}&upperPrice=${upperPrice}&descSorted=${descSorted}&categoryId=${categoryId}`)
 // https://m.you.163.com/xhr/search/search.json?keyword=%E7%8C%AB%E7%B2%AE&sortType=1&descSorted=false&floorPrice=1&upperPrice=100&size=40
 
-
-
+//值得买数据
+//https://m.you.163.com/topic/v1/find/recAuto.json?page=1&size=5&exceptIds=
+export const reqWorthBuyingList = ({ page, size, exceptIds }) => ajax.post(`topic/v1/find/recAuto.json?page=${page}&size=${size}&exceptIds=${exceptIds}`)
+//https://m.you.163.com/xhr/wapitem/rcmd.json
+// 商品详情
+export const reqgoodsDetails = (obj) => ajax({
+  method: 'POST',
+  url: '/xhr/wapitem/rcmd.json',
+  data: obj
+})

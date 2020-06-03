@@ -31,7 +31,7 @@ export default {
   watch: {
     $route() {
       const { path } = this.$route
-      if (path === '/search') {
+      if (path === '/search' || path === '/detail') {
         this.isTabbar = false
       } else {
         this.isTabbar = true

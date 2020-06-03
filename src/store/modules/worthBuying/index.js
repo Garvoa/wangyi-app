@@ -1,6 +1,10 @@
-import { reqWorthBuying } from "../../../api"
+/* eslint-disable no-unused-vars */
+import { reqWorthBuying, reqWorthBuyingList } from "../../../api"
 const state = {
-  WorthBuyingData: []
+  WorthBuyingData: [],
+  WorthBuyingList: {
+    result: []
+  }
 }
 const mutations = {
   UPDATA_WorthBuyingData(state, WorthBuyingData) {
@@ -15,6 +19,12 @@ const mutations = {
         }
       }
     })
+  },
+  UPDATA_WorthBuyingList(state, WorthBuyingList) {
+    WorthBuyingList.result.forEach((item) => {
+      state.WorthBuyingList.result.push(item)
+    })
+    // state.WorthBuyingList = WorthBuyingList
   }
 }
 const actions = {
@@ -26,9 +36,18 @@ const actions = {
       console.log(result)
       commit('UPDATA_WorthBuyingData', data[0].data.navList)
     }
+  },
+
+  async getWorthBuyingList({ commit }, perPage) {
+    return reqWorthBuyingList(perPage)
+
   }
 }
-const getters = {}
+const getters = {
+  // WorthBuyingresult(state) {
+  //   state.WorthBuyingList ? state.WorthBuyingList.result : []
+  // }
+}
 export default {
   state, mutations, actions, getters
 }

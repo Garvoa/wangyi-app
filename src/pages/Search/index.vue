@@ -20,7 +20,8 @@
       <van-icon name="cross" class="cross" @click="removeKeyword" v-if="value" />
     </div>
     <!-- 热门搜索 -->
-    <div v-show="directlyList.length===0 &&!value&&isfcous">
+    <!-- directlyList.length===0 &&!value&&isfcous -->
+    <div v-show="directlyList.length===0 &&!value">
       <div class="searchHot" :class="{ active: isActive }" v-show="searchKeyword.length===0">
         <h3>热门搜索</h3>
         <ul class="list">
@@ -40,7 +41,7 @@
         @click="getKeyWordList(item)"
       />
     </div>
-    <div v-show="directlyList.length>0 &&!isfcous">
+    <div v-show="directlyList.length>0 &&!isfcous&&!isLoading">
       <!-- 价格，综合，分类 -->
       <div class="conditions">
         <div class="list">
@@ -172,7 +173,7 @@ export default {
           this.isfcous = true
           this.$store.dispatch('getSearchkeyword', this.value)
         }
-      }, 500)
+      }, 300)
     },
     removeKeyword() {
       this.$store.commit('DELETE_SEARCHKEYWORD')
@@ -187,22 +188,24 @@ export default {
         .dispatch('getSearchkeywordList', [keyword, size])
         .then(result => {
           const { code, data } = result.data
+          console.log(this.isLoading)
           if (code * 1 === 200) {
-            // this.isLoading = false
+            this.isLoading = false
             this.$store.commit('SEARCH_KEYWORD_LIST', data)
+          } else {
+            this.isLoading = false
           }
         })
       this.value = keyword
       this.isfcous = false
-      this.$router.replace({ query: { keyword } })
+      const { path } = this.$route
+      this.$router.replace({ path, query: { keyword } })
     },
 
     typeChoice(num) {
       if (num === 1) {
-        // console.log(1)
         this.isSort = true
       } else if (num === 2) {
-        // this.categoryId = num
         this.isSort = true
         this.clearData()
       } else if (num === 0) {
@@ -312,7 +315,7 @@ export default {
   padding: 10px 20px;
   position: absolute;
   z-index: 8;
-  width: 100%;
+  width: 89%;
   top: 0px;
   height: 40px;
   display: flex;
@@ -321,14 +324,14 @@ export default {
   .loginSeach {
     position: absolute;
     background-color: #eeeeee;
-    width: 60%;
+    width: 65%;
     padding: 5px;
     border-radius: 10px;
-    left: 15%;
+    left: 19%;
   }
   .cross {
     position: absolute;
-    right: 120px;
+    right: 80px;
     top: 25px;
   }
   span {

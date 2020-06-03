@@ -15,7 +15,7 @@
         >{{item.name}}</li>
       </ul>
 
-      <div class="punctuation" ref="ptc"></div>
+      <!-- <div class="punctuation" ref="ptc"></div> -->
       <van-pull-refresh
         v-model="isLoading"
         :head-height="80"
@@ -67,10 +67,9 @@ export default {
   },
   methods: {
     switchList(e, index, id) {
-      console.log(e.target.clientHeight)
-      let num = 40 * index
-      console.log(num)
-      this.$refs.ptc.style.transform = `translatey(${num}px)`
+      // let num = 40 * index
+      // console.log(num)
+      // this.$refs.ptc.style.transform = `translatey(${num}px)`
       this.actvieIndex = index
       this.$store.dispatch('reqcategoryRightData', id)
     },
@@ -144,11 +143,11 @@ export default {
       overflow: hidden;
       .banner {
         width: 250px;
-        margin: 10px;
+        margin-top: 10px;
         margin-left: 20%;
       }
       ul {
-        margin-bottom: 12%;
+        margin-bottom: 15%;
         margin-left: 22%;
         overflow: hidden;
 
@@ -166,15 +165,15 @@ export default {
         }
       }
     }
-    .punctuation {
-      width: 2px;
-      height: 22px;
-      position: absolute;
-      background-color: red;
-      top: 11%;
-      transition: 0.5s;
-      // transform: translatey(30px);
-    }
+    // .punctuation {
+    //   width: 2px;
+    //   height: 22px;
+    //   position: absolute;
+    //   background-color: red;
+    //   top: 11%;
+    //   transition: 0.5s;
+    //   // transform: translatey(30px);
+    // }
   }
 }
 /* @import url(); 引入css类 */

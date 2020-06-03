@@ -22,6 +22,11 @@ module.exports = {
         target: 'https://m.you.163.com',
         ws: true,
         changeOrigin: true
+      },
+      '/topic': {
+        target: 'https://m.you.163.com',
+        ws: true,
+        changeOrigin: true
       }
 
     }

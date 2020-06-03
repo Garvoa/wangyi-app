@@ -19,7 +19,9 @@
           size="large"
           @click="toSearch"
         />
-        <van-button class="loginBtn">登录</van-button>
+        <router-link to="/login">
+          <van-button class="loginBtn">登录</van-button>
+        </router-link>
       </div>
       <div class="nav-selsect">
         <span class="tabAlter" v-if="!isShow">全部频道</span>
@@ -153,12 +155,14 @@ export default {
     #toggle {
       position: absolute;
       right: 0px;
-      top: -0px;
+      top: 1px;
       width: 83px;
-      height: 44px;
+      height: 43px;
       background-color: white;
       text-align: center;
-      line-height: 55px;
+      line-height: 40px;
+
+      z-index: 1;
     }
     .tabAlter {
       position: absolute;

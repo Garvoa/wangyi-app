@@ -37,7 +37,7 @@
       </div>
     </div>
     <section>
-      <div class="content">
+      <!-- <div class="content">
         <ul>
           <li class="contentitem">
             <img
@@ -152,7 +152,30 @@
             </div>
           </li>
         </ul>
-      </div>
+      </div>-->
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        ref="list"
+        @load="onLoad"
+        class="content van-clearfix"
+      >
+        <div>
+          <div v-for="(item,index) in WorthBuyingList.result" :key="index" class="item">
+            <div class="contentitem" v-for="(topic,index) in item.topics" :key="index">
+              <img :src="topic.picUrl" alt />
+              <p>{{topic.title}}</p>
+              <div class="m-lookDetail">
+                <img :src="topic.avatar" alt />
+                <p>{{topic.nickname}}</p>
+                <img src="../../assets/liulan.png" alt />
+                <p class="retailPrice">{{topic.readCount}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </van-list>
     </section>
   </div>
 </template>
@@ -162,11 +185,45 @@ import { mapState } from 'vuex'
 import Swiper from 'swiper'
 export default {
   data() {
-    return {}
+    return {
+      perPage: {
+        page: 1,
+        size: 5,
+        exceptIds: ''
+      },
+      finished: false,
+      loading: false
+    }
   },
-  methods: {},
+  methods: {
+    onLoad() {
+      // 异步更新数据
+      this.perPage.page += 1
+      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+      setTimeout(async () => {
+        this.getWorthBuyingList()
+      }, 500)
+    },
+    async getWorthBuyingList() {
+      const result = await this.$store.dispatch(
+        'getWorthBuyingList',
+        this.perPage
+      )
+      const { data, code } = result.data
+      if (code * 1 === 200) {
+        if (this.$refs.list) {
+          this.loading = false
+        }
+
+        this.$store.commit('UPDATA_WorthBuyingList', data)
+      }
+    }
+  },
   computed: {
-    ...mapState({ WorthBuyingData: state => state.worthBuying.WorthBuyingData })
+    ...mapState({
+      WorthBuyingData: state => state.worthBuying.WorthBuyingData,
+      WorthBuyingList: state => state.worthBuying.WorthBuyingList
+    })
   },
   watch: {
     WorthBuyingData() {
@@ -202,6 +259,7 @@ export default {
   created() {},
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
+    // this.getWorthBuyingList()
     this.$store.dispatch('reqreqWorthBuyingData')
   }
 }
@@ -308,40 +366,51 @@ export default {
     }
   }
   section {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 10px;
+    .list {
+      margin-bottom: 30px;
+    }
     .content {
-      // width: 50%;
-      width: 45%;
-      // padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      padding-bottom: 50px;
+      .item {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+      }
       .contentitem {
         border-radius: 10px;
-        // border: 1px solid #111111;
+        width: 45%;
         background-color: white;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
         margin-bottom: 10px;
-        padding-bottom: 10px;
-        .m-lookDetail {
+        padding-bottom: 20px;
+        img {
           width: 100%;
+          border-radius: 10px 10px 0px 0px;
+        }
+        .m-lookDetail {
+          display: flex;
+          width: 100%;
+          img {
+            border-radius: 30px;
+            width: 20px;
+          }
+
           padding-top: 10px;
         }
       }
     }
-    .m-image {
-      border-radius: 10px 10px 0 0px;
-      width: 100%;
-    }
-    .m-userName {
-      width: 20px;
-      height: 20px;
-      vertical-align: bottom;
-      border-radius: 50%;
-      margin-left: 10px;
-    }
+    // .m-image {
+    //   border-radius: 10px 10px 0 0px;
+    //   width: 100%;
+    // }
+    // .m-userName {
+    //   width: 20px;
+    //   height: 20px;
+    //   vertical-align: bottom;
+    //   border-radius: 50%;
+    //   margin-left: 10px;
+    // }
   }
 }
 /* ../..import url(); 引入css类 */
